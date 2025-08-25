@@ -14,6 +14,9 @@ export class CadastroComponent implements OnInit {
 
   _listaTodosPoliciais: any[] = [ ]
 
+  listaCadastro:boolean = false;
+
+
   formCadastro = inject(FormBuilder).group({
     rg_civil:[],
     rg_militar:[],

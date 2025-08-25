@@ -3,6 +3,18 @@
     <div class="inserir">
         <button (click)="cadastrar()" type="button" class="btn">Inserir</button>
     </div>
+    @if(listaCadastro){
+      <form >
+          <label for="">RG Civil</label>
+          <input type="text" >
+          <label for="">RG Militar</label>
+          <input type="text">
+          <label for="">RG CPF</label>
+          <input type="text">
+          <label for="">RG Matricula</label>
+          <input type="text">
+      </form>
+    }
 
   <form (submit)="cadastrar()">
     <table class="tabela">
