@@ -1,0 +1,37 @@
+/* estilo.css ou styles.css global */
+
+.container {
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 20px 30px;
+    text-align: center;
+    background-color: #333;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    font-family: 'Arial', sans-serif;
+}
+
+h1 {
+    font-size: 24px;
+    margin-bottom: 30px;
+    color: #fff;
+}
+
+nav span {
+    margin: 0 15px;
+}
+
+nav a {
+    text-decoration: none;
+    color: #ffffff;
+    background-color: #77b9ff;
+    padding: 10px 20px;
+    border-radius: 6px;
+    transition: background-color 0.3s, transform 0.2s;
+    font-weight: bold;
+}
+
+nav a:hover {
+    background-color: #77b9ff;
+    transform: translateY(-2px);
+}

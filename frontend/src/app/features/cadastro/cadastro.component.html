@@ -1,1 +1,26 @@
-<p>cadastro works!</p>
+<div class="container">
+    <form (submit)="cadastrar()">
+        <table>
+            <thead>
+                <th>RG Civil</th>
+                <th>RG Militar</th>
+                <th>RG CPF</th>
+                <th>RG Data de Nascimento</th>
+                <th>Ações</th>
+            </thead>
+            <tbody>
+                @for(policial of service.listaTodosPoliciais; track policial.id){
+                <tr>
+                    <th>{{policial.rg_civil}}</th>
+                    <th>{{policial.rg_militar}}</th>
+                    <th>{{policial.cpf}}</th>
+                    <th>{{policial.data_nascimento}}</th>
+                    <th>{{policial.matricula}}</th>
+                    <td><button type="submit">Editar</button> <button>Excluir</button></td>
+                </tr>
+
+                }
+            </tbody>
+        </table>
+    </form>
+</div>
