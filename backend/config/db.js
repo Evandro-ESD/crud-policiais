@@ -1,7 +1,7 @@
 import mysql2 from 'mysql2/promise'
 import dotenv from 'dotenv'
 
-dotenv.config()
+dotenv.config({path: '../.env'})
 
 
 const pool = mysql2.createPool({
@@ -14,9 +14,9 @@ const pool = mysql2.createPool({
     queueLimit: 0
 })
 
-// testando conexão
-const [rows] = await pool.execute(`SELECT * FROM policiais`) 
-console.log(rows)
+// // testando conexão
+// const [rows] = await pool.execute(`SELECT * FROM policiais`) 
+// console.log(rows)
 
 
 export default pool
