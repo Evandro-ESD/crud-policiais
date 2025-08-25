@@ -9,7 +9,7 @@
                 <th>Ações</th>
             </thead>
             <tbody>
-                @for(policial of service.listaTodosPoliciais; track policial.id){
+                @for(policial of _listaTodosPoliciais; track policial.id){
                 <tr>
                     <th>{{policial.rg_civil}}</th>
                     <th>{{policial.rg_militar}}</th>
