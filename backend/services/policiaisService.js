@@ -1,5 +1,10 @@
 import bcrypt from 'bcrypt';
-import { getAll, getId, createPolicial, updatePolicial, deletePolicial } from '../repository/policiaisRepository.js';
+import {    getAll, 
+            getId, 
+            createPolicial, 
+            updatePolicial, 
+            deletePolicial 
+} from '../repository/policiaisRepository.js';
 
 export const getAllPoliciaisService = async () => {
     return await getAll();
@@ -10,12 +15,6 @@ export const getPolicialByIdService = async (id) => {
     if (rows.length === 0) throw new Error('Policial não encontrado!');
     return rows[0];
 };
-
-
-// encriptografar o campo matricula com bcrypt
-
-
-
 
 export const createPolicialService = async (policial) => {
     if (!policial.rg_civil && !policial.rg_militar || !policial.cpf || !policial.data_nascimento || !policial.matricula) {
