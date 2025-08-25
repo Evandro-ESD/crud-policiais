@@ -1,26 +1,36 @@
 <div class="container">
-    <form (submit)="cadastrar()">
-        <table>
-            <thead>
-                <th>RG Civil</th>
-                <th>RG Militar</th>
-                <th>RG CPF</th>
-                <th>RG Data de Nascimento</th>
-                <th>Ações</th>
-            </thead>
-            <tbody>
-                @for(policial of _listaTodosPoliciais; track policial.id){
-                <tr>
-                    <th>{{policial.rg_civil}}</th>
-                    <th>{{policial.rg_militar}}</th>
-                    <th>{{policial.cpf}}</th>
-                    <th>{{policial.data_nascimento}}</th>
-                    <th>{{policial.matricula}}</th>
-                    <td><button type="submit">Editar</button> <button>Excluir</button></td>
-                </tr>
 
-                }
-            </tbody>
-        </table>
-    </form>
+    <div class="inserir">
+        <button (click)="cadastrar()" type="button" class="btn">Inserir</button>
+    </div>
+
+  <form (submit)="cadastrar()">
+    <table class="tabela">
+      <thead>
+        <tr>
+          <th>RG Civil</th>
+          <th>RG Militar</th>
+          <th>CPF</th>
+          <th>Data de Nascimento</th>
+          <th>Matrícula</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for(policial of _listaTodosPoliciais; track policial.id){
+        <tr>
+          <td>{{ policial.rg_civil }}</td>
+          <td>{{ policial.rg_militar }}</td>
+          <td>{{ policial.cpf }}</td>
+          <td>{{ policial.data_nascimento }}</td>
+          <td>{{ policial.matricula }}</td>
+          <td>
+            <button type="button" class="btn editar" >Editar</button>
+            <button type="button" class="btn excluir" (click)="excluir(policial.id)">Excluir</button>
+          </td>
+        </tr>
+        }
+      </tbody>
+    </table>
+  </form>
 </div>

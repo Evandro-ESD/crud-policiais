@@ -40,8 +40,11 @@ export class CadastroComponent implements OnInit {
 
   cadastrar() {
     this.service.createPolicial(this.formCadastro.value).subscribe()
-
-
   }
+
+  excluir(id: number) {
+    this.service.deletePolicial(id).subscribe()
+  }
+
 
 }
