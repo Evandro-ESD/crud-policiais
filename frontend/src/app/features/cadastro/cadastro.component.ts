@@ -12,17 +12,17 @@ export class CadastroComponent implements OnInit {
 
   service = inject(AuthService)
 
-  _listaTodosPoliciais: any[] = [ ]
+  _listaTodosPoliciais: any[] = []
 
-  listaCadastro:boolean = false;
+  listaCadastro: boolean = false;
 
 
   formCadastro = inject(FormBuilder).group({
-    rg_civil:[],
-    rg_militar:[],
-    cpf:[],
+    rg_civil: [],
+    rg_militar: [],
+    cpf: [],
     data_nascimento: [],
-    matricula:[]
+    matricula: []
   }
   )
   ngOnInit() {
@@ -30,19 +30,32 @@ export class CadastroComponent implements OnInit {
     this.service.getAllPoliciais().subscribe({
       next: (response: any) => {
 
-      // adicionar os objetos na lista para exibir em tela
+        // adicionar os objetos na lista para exibir em tela
         this._listaTodosPoliciais = response;
         console.log(this._listaTodosPoliciais)
       },
       error: (error: any) => {
         console.error(error);
       }
-      
+
     })
+  }
+
+  openCadastro() {
+    this.listaCadastro = true;
+  }
+
+  closeCadastro() {
+    this.listaCadastro = false;
   }
 
   cadastrar() {
     this.service.createPolicial(this.formCadastro.value).subscribe()
+    this.closeCadastro()
+  }
+
+  editar(){
+
   }
 
   excluir(id: number) {

@@ -2,7 +2,7 @@ import express from 'express';
 import cors from 'cors'
 import dotenv from 'dotenv'
 import router from './routes/routesPoliciais.js'
-dotenv.config({path: '../.env'})
+dotenv.config({path: './.env'})
 
 
 const app = express()
