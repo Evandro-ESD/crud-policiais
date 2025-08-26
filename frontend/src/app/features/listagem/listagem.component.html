@@ -1,1 +1,25 @@
-<p>listagem works!</p>
+<table class="tabela">
+  <thead>
+    <tr>
+      <th>RG Civil</th>
+      <th>RG Militar</th>
+      <th>CPF</th>
+      <th>Data de Nascimento</th>
+      <th>Matrícula</th>
+      <th>Ações</th>
+    </tr>
+  </thead>
+  <tbody>
+    @for (policial of _listaTodosPoliciais; track policial.id; let i = $index) {
+    <tr>
+      <td>{{ policial.rg_civil }}</td>
+      <td>{{ policial.rg_militar }}</td>
+      <td>{{ policial.cpf | cpf}}</td>
+      <td>{{ policial.data_nascimento | dataBr}}</td>
+      <td>{{ policial.matricula }}</td>
+      <td>
+      </td>
+    </tr>
+    }
+  </tbody>
+</table>

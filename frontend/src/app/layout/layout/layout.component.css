@@ -3,9 +3,10 @@
     max-width: 1200px;      /* largura máxima */
     margin: 0 auto;          /* centralizar horizontalmente */
     padding: 20px;           /* espaçamento interno */
-    background-color: #f5f5f5; /* cor de fundo clara */
+    background-color: #383838; /* cor de fundo clara */
     box-shadow: 0 4px 6px rgba(0,0,0,0.1); /* sombra suave */
     border-radius: 12px;     /* cantos arredondados */
+    height: 80dvh;
 }
 
 /* Área do header */
@@ -14,8 +15,8 @@
     justify-content: center; /* centraliza o header horizontalmente */
     align-items: center;     /* centraliza verticalmente */
     padding: 10px 0;
-    background-color: #ffffff; /* fundo branco para destacar */
-    border-bottom: 1px solid #ddd; /* linha inferior suave */
+    /* background-color: #ffffff; 
+    border-bottom: 1px solid #ddd;  */
     border-radius: 8px 8px 0 0; /* cantos arredondados apenas no topo */
 }
 

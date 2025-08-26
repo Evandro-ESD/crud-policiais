@@ -1,0 +1,27 @@
+/* Tabela */
+.tabela {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+  overflow: hidden;
+  border-radius: 8px;
+}
+
+.tabela thead {
+  background: #007bff;
+  color: #fff;
+}
+
+.tabela th, .tabela td {
+  padding: 0.8rem;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.tabela tr:nth-child(even) {
+  background: #f9f9f9;
+}
+
+.tabela tr:hover {
+  background: #eef5ff;
+}
