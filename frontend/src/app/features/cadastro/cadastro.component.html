@@ -1,40 +1,62 @@
 <div class="container">
+  <div class="inserir">
+    <button (click)="openCadastro()" type="button" class="btn inserir">Cadastrar</button>
+  </div>
 
-    <div class="inserir">
-        <button (click)="openCadastro()" type="button" class="btn">Inserir</button>
-    </div>
-    @if(listaCadastro){
-      <form class="form-cadastro" formGroup="cadastroForm" (ngSubmit)="cadastrar()">
-          <label for="">RG Civil</label>
-          <input type="text" formControlName="rg_civil">
-          <label for="">RG Militar</label>
-          <input type="text" formControlName="rg_militar">
-          <label for="">RG Militar</label>
-          <input type="text" formControlName="cpf">
-          <label for="">RG CPF</label>
-          <input type="text" formControlName="data_nascimento">
-          <label for="">RG Matricula</label>
-          <input type="text" formControlName="matricula">
+  @if (listaCadastro) {
+    <form class="form-cadastro" [formGroup]="formCadastro" (ngSubmit)="cadastrar()">
+      <label>RG Civil</label>
+      <input type="text" formControlName="rg_civil" />
+      <small class="erro" *ngIf="formCadastro.get('rg_civil')?.invalid && formCadastro.get('rg_civil')?.touched">
+        Campo obrigatório
+      </small>
 
+      <label>RG Militar</label>
+      <input type="text" formControlName="rg_militar" />
+      <small class="erro" *ngIf="formCadastro.get('rg_militar')?.invalid && formCadastro.get('rg_militar')?.touched">
+        Campo obrigatório
+      </small>
 
-          <button (click)="cadastrar()" type="button" class="btn">Inserir</button>
-      </form>
-    }
+      <label>CPF</label>
+      <input type="text" formControlName="cpf" />
+      <small class="erro" *ngIf="formCadastro.get('cpf')?.errors?.['cpfInvalido'] && formCadastro.get('cpf')?.touched">
+        CPF inválido
+      </small>
+      <small class="erro" *ngIf="formCadastro.get('cpf')?.errors?.['required'] && formCadastro.get('cpf')?.touched">
+        Campo obrigatório
+      </small>
 
-  <form (submit)="cadastrar()">
-    <table class="tabela">
-      <thead>
-        <tr>
-          <th>RG Civil</th>
-          <th>RG Militar</th>
-          <th>CPF</th>
-          <th>Data de Nascimento</th>
-          <th>Matrícula</th>
-          <th>Ações</th>
-        </tr>
-      </thead>
-      <tbody>
-        @for(policial of _listaTodosPoliciais; track policial.id){
+      <label>Data de Nascimento</label>
+      <input type="text" formControlName="data_nascimento" />
+      <small class="erro" *ngIf="formCadastro.get('data_nascimento')?.invalid && formCadastro.get('data_nascimento')?.touched">
+        Campo obrigatório
+      </small>
+
+      <label>Matrícula</label>
+      <input type="text" formControlName="matricula" />
+      <small class="erro" *ngIf="formCadastro.get('matricula')?.invalid && formCadastro.get('matricula')?.touched">
+        Campo obrigatório
+      </small>
+
+      <button type="submit" class="btn">
+        {{ editando ? "Salvar Alterações" : "Inserir" }}
+      </button>
+    </form>
+  }
+
+  <table class="tabela">
+    <thead>
+      <tr>
+        <th>RG Civil</th>
+        <th>RG Militar</th>
+        <th>CPF</th>
+        <th>Data de Nascimento</th>
+        <th>Matrícula</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (policial of _listaTodosPoliciais; track policial.id; let i = $index) {
         <tr>
           <td>{{ policial.rg_civil }}</td>
           <td>{{ policial.rg_militar }}</td>
@@ -42,12 +64,15 @@
           <td>{{ policial.data_nascimento }}</td>
           <td>{{ policial.matricula }}</td>
           <td>
-            <!-- <button type="button" class="btn editar" (click)="editar(policial.id)">Editar</button> -->
-            <button type="button" class="btn excluir" (click)="excluir(policial.id)">Excluir</button>
+            <button type="button" class="btn editar" (click)="openEditar(policial.id, _listaTodosPoliciais[i])">
+              Editar
+            </button>
+            <button type="button" class="btn excluir" (click)="excluir(policial.id)">
+              Excluir
+            </button>
           </td>
         </tr>
-        }
-      </tbody>
-    </table>
-  </form>
+      }
+    </tbody>
+  </table>
 </div>

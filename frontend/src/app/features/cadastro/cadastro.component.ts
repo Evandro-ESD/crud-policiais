@@ -1,66 +1,102 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { cpf } from 'cpf-cnpj-validator'; // lib instalada
+import { CommonModule } from '@angular/common';
+
+
 
 @Component({
+  imports:[ReactiveFormsModule, CommonModule],
   selector: 'app-cadastro',
-  imports: [],
   templateUrl: './cadastro.component.html',
-  styleUrl: './cadastro.component.css'
+  styleUrls: ['./cadastro.component.css'] // corrigido "styleUrls"
 })
 export class CadastroComponent implements OnInit {
+  service = inject(AuthService);
 
-  service = inject(AuthService)
-
-  _listaTodosPoliciais: any[] = []
-
+  _listaTodosPoliciais: any[] = [];
   listaCadastro: boolean = false;
+  editando: boolean = false; // controle de edição
+  idEditando: number | null = null;
 
+  fb = inject(FormBuilder);
 
-  formCadastro = inject(FormBuilder).group({
-    rg_civil: [],
-    rg_militar: [],
-    cpf: [],
-    data_nascimento: [],
-    matricula: []
-  }
-  )
+  formCadastro = this.fb.group({
+    rg_civil: ['', Validators.required],
+    rg_militar: ['', Validators.required],
+    cpf: ['', [Validators.required, this.validaCpf]], // custom validator
+    data_nascimento: ['', Validators.required],
+    matricula: ['', Validators.required]
+  });
+
   ngOnInit() {
-    this.service.listaTodosPoliciais
     this.service.getAllPoliciais().subscribe({
       next: (response: any) => {
-
-        // adicionar os objetos na lista para exibir em tela
         this._listaTodosPoliciais = response;
-        console.log(this._listaTodosPoliciais)
       },
       error: (error: any) => {
         console.error(error);
       }
-
-    })
+    });
   }
 
   openCadastro() {
     this.listaCadastro = true;
+    this.editando = false;
+    this.formCadastro.reset();
   }
 
   closeCadastro() {
     this.listaCadastro = false;
   }
 
+  // ---------- CRUD ----------
   cadastrar() {
-    this.service.createPolicial(this.formCadastro.value).subscribe()
-    this.closeCadastro()
+    if (this.formCadastro.invalid) return;
+
+    if (this.editando && this.idEditando) {
+      // EDITAR
+      this.service.updatePolicial(this.idEditando, this.formCadastro.value).subscribe({
+        next: () => {
+          const index = this._listaTodosPoliciais.findIndex(p => p.id === this.idEditando);
+          this._listaTodosPoliciais[index] = { id: this.idEditando, ...this.formCadastro.value };
+          this.closeCadastro();
+        }
+      });
+    } else {
+      // CADASTRAR
+      this.service.createPolicial(this.formCadastro.value).subscribe({
+        next: (novo: any) => {
+          this._listaTodosPoliciais.push(novo);
+          this.closeCadastro();
+        }
+      });
+    }
+    // this.closeCadastro();
   }
 
-  editar(){
-
+  openEditar(id: number, policial: any) {
+    this.listaCadastro = true;
+    this.editando = true;
+    this.idEditando = id;
+    this.formCadastro.patchValue(policial);
   }
 
   excluir(id: number) {
-    this.service.deletePolicial(id).subscribe()
+    this.service.deletePolicial(id).subscribe({
+      next: () => {
+        this._listaTodosPoliciais = this._listaTodosPoliciais.filter(p => p.id !== id);
+      }
+    });
   }
 
-
+  // ---------- VALIDADORES ----------
+  validaCpf(control: any) {
+    const value = control.value;
+    if (value && !cpf.isValid(value)) {
+      return { cpfInvalido: true };
+    }
+    return null;
+  }
 }
